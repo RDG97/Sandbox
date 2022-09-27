@@ -1,42 +1,30 @@
-function showFacts() {
-    console.log(catFacts)
-document.getElementById("hello").innerHTML = catFacts[1].fact;
-};
+getData('https://catfact.ninja/facts');
+let facts = [];
+async function getData(url) {
+    try {
+      const response = await axios.get(url);
+      facts = response.data.data
+    } catch (error) {
+      console.error('error!bad wesite or bad code! (its your code)');
+    }
+  }
 
-
-let catFacts = [];
-
-function getCatFacts() {
-        fetch('https://catfact.ninja/facts')
-        .then((resp) => resp.json())
-        .then((data) => {
-            catFacts = data.data
-            console.log(catFacts);
-        }
-        
-        );
-}
-getCatFacts();
-console.log(catFacts)
-
-setTimeout(showFacts, 500)
-let x = 0;
-async function showFacts() {
-    console.log(catFacts)
-    document.getElementById("hello").innerHTML = catFacts[x].fact;
+  let x = 0;
+async function newFact() {
+    document.getElementById("hello").innerHTML = facts[x].fact;
     x++
     return x;
 };
 
-function failed() {
-    console.log('you suck');
-}
+button.addEventListener('click', newFact)
 
-// if promise = true ( or fufilled) then *function*
 
-showFacts().then(
-    function(value) {showFacts(value);},
-    function(error) {showFacts(error);}
-  );
+//const test = new Promise((resolve) => {
+//});
 
-button.addEventListener('click', showFacts)
+
+const test = new Promise((resolve) => {
+    setTimeout(() => {
+        resolve(newFact());
+    }, 500);
+});
