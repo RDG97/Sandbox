@@ -60,6 +60,7 @@ let resetButton;
 guessField.focus();
 function checkGuess() {
   const userGuess = Number(guessField.value);
+  localStorage.setItem('guess' + `${guessCount}`, `${userGuess}`)
   if (guessCount === 1) {
     guesses.textContent = 'Previous guesses: ';
   }
@@ -106,6 +107,7 @@ function resetGame() {
   const resetParas = document.querySelectorAll('.resultParas p');
   for (const resetPara of resetParas) {
     resetPara.textContent = '';
+    localStorage.clear()
   }
 
   resetButton.parentNode.removeChild(resetButton);
@@ -119,6 +121,7 @@ function resetGame() {
 
   randomNumber = Math.floor(Math.random() * 100) + 1;
 }
+
     </script>
   </body>
 </html>
